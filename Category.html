@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <!--  for Social media icons in footer    -->
+    <script src="https://kit.fontawesome.com/82f786c1bd.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    /* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.4s ease;;
+}
+
+/* ===== Colours ===== */
+:root{
+    --body-color: #E4E9F7;
+    /* --nav-color: #4070F4; */
+    --nav-color:#7135b5;
+    --side-nav: #010718;
+    --text-color: #FFF;
+    --search-bar: #F2F2F2;
+    --search-text: #010718;
+}
+
+body{
+    height: 100vh;
+    background-color: var(--body-color);
+    /* background-color: #f8f8fd; */   
+
+}
+
+body.dark{
+    --body-color: #18191A;
+    --nav-color: #242526;
+    --side-nav: #242526;
+    --text-color: #CCC;
+    --search-bar: #242526;
+}
+nav{
+/*     position: fixed; */
+    top: 0;
+    left: 0;
+    height: 60px;
+    width: 100%;
+    /* background: linear-gradient(to right,#2d0b00,#00093c); */
+    background-color: #A350A3;
+    z-index: 100;
+}
+nav .nav-bar{
+    position: relative;
+    height: 100%;
+    max-width: 1000px;
+    width: 100%;
+    background-color: var(--nav-color);
+    background-color: transparent;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav .nav-bar .sidebarOpen{
+    color: red;
+    font-size: 30px;
+    padding: 25px;
+    cursor: pointer;
+    display: none;
+}
+nav .nav-bar .logo a{
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+.menu .logo-toggle{
+    display: none;
+}
+.nav-bar .nav-links{
+    display: flex;
+    align-items: center;
+}
+.nav-bar .nav-links li{
+    margin: 0 7px;
+    list-style: none;
+}
+.nav-links li a{
+    position: relative;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px;
+}
+.nav-links li a::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+.nav-links li:hover a::before{
+    opacity: 1;
+}
+.nav-bar .darkLight-searchBox{
+    display: flex;
+    align-items: center;
+}
+.darkLight-searchBox .dark-light,
+.darkLight-searchBox .searchToggle{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+.dark-light i,
+.searchToggle i{
+    position: absolute;
+    color: var(--text-color);
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.dark-light i.sun{
+    opacity: 0;
+    pointer-events: none;
+}
+.dark-light.active i.sun{
+    opacity: 1;
+    pointer-events: auto;
+}
+.dark-light.active i.moon{
+    opacity: 0;
+    pointer-events: none;
+}
+.searchToggle i.cancel{
+    opacity: 0;
+    pointer-events: none;
+}
+.searchToggle.active i.cancel{
+    opacity: 1;
+    pointer-events: auto;
+}
+.searchToggle.active i.search{
+    opacity: 0;
+    pointer-events: none;
+}
+.searchBox{
+    position: relative;
+}
+.searchBox .search-field{
+    position: absolute;
+    bottom: -85px;
+    right: 5px;
+    height: 50px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    background-color: var(--nav-color);
+    padding: 3px;
+    border-radius: 6px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+.searchToggle.active ~ .search-field{
+    bottom: -74px;
+    opacity: 1;
+    pointer-events: auto;
+}
+.search-field::before{
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: -4px;
+    height: 12px;
+    width: 12px;
+    background-color: var(--nav-color);
+    transform: rotate(-45deg);
+    z-index: -1;
+}
+.search-field input{
+    height: 100%;
+    width: 100%;
+    padding: 0 45px 0 15px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--search-text);
+    background-color: var(--search-bar);
+}
+body.dark .search-field input{
+    color: var(--text-color);
+}
+.search-field i{
+    position: absolute;
+    color: var(--nav-color);
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
+body.dark .search-field i{
+    color: var(--text-color);
+}
+
+.userlogin{
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+@media (max-width: 760px) {
+    nav .nav-bar .sidebarOpen{
+        display: block;
+    }
+    .menu{
+        position: fixed;
+        height: 100%;
+        width: 300px;
+        left: -100%;
+        top: 0;
+        padding: 20px ;
+        background-color: rgba(0, 0, 0, 0.832);
+        z-index: 100;
+        transition: all 0.3s ease;
+    }
+    nav.active .menu{
+        left: -0%;
+    }
+    nav.active .nav-bar .navLogo a{
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    .menu .logo-toggle{
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .logo-toggle .siderbarClose{
+        color: var(--text-color);
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .nav-bar .nav-links{
+        flex-direction: column;
+        padding-top: 90px;
+    }
+    .nav-links li a{
+        display: block;
+        padding-top: 10px;
+    }    
+}
+
+h4:hover{
+    color: red;
+}  
+/* Rating type css Images */
+.RatImage-container{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    /* background-color: rgb(158, 222, 238); */
+}
+
+.truncate{
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    font-weight: 800;
+    
+}
+.cardUseName{
+    /* padding-top: 8px 0px; */
+    color: rgb(4, 1, 9);
+}
+/* .rating{
+    color: rgb(192, 237, 255);
+    padding-top: 3px;
+} */
+.episodeImage p{
+    color: rgb(220, 76, 172);
+}
+.moduleName{
+    grid-column: auto;
+    margin: 30px 20px;
+    /* padding-left: 30px; */
+    color: #A350A3;
+    font-size:200%;
+    text-align: center;
+    font-weight: bolder;
+    /* text-align: center; */
+}
+
+.episodeImage{
+    float: right;
+    width: 16.6665%;
+    padding: 10px;
+}
+.episodeImage #pic{
+    width: 100%;
+    height: 100%;
+    border-radius: 6%;
+}
+
+@media(max-width:800px){
+    .episodeImage{
+    float: left;
+    width: 33.333%;
+    padding: 10px;
+}
+}
+
+/* this is footer */
+.foot{
+    /* background:#d25ee4 ; */
+    /* background: linear-gradient(to right,#00093c,#2d0b00); */
+    background-color: #A350A3;
+    /* border-top-left-radius: 125px; */
+}
+.footer{
+    width: 100%;
+    position:absolute;
+    bottom: 0;
+    /* background: linear-gradient(to right,#00093c,#2d0b00); */
+    background-color: #A350A3;
+    color: #FFF;
+    padding: 100px 0 30px;
+    font-size: 13px;
+    line-height: 20px;
+}
+.row{
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.col{
+    flex-basis: 25%;
+    padding: 10px;
+    color: #fff;
+}
+.col:nth-child(2),.col:nth-child(3){
+    flex-basis: 15%;
+}
+.logo{
+    width: 220px;
+    margin: 50px 0px;
+}
+.col h3{
+    width: fit-content;
+    margin: 40px 0px;
+    position: relative;
+    color: rgb(46, 249, 252);
+}
+.email{
+    width: fit-content;
+    border-bottom: 1px solid #fff;
+    margin: 20px 0px;
+}
+.submit{
+    color: red;
+}
+ul li{
+    text-decoration: none;
+    margin-bottom: 12px;
+}
+ul li a{
+    text-decoration: none;
+    color: #fff;
+}
+form{
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 50px;
+}
+form .far{
+    font-size: 18px;
+    margin-right: 10px;
+}
+form input{
+    width: 100%;
+    background: transparent;
+    color: #ccc;
+    border: 0;
+    outline: none;
+}
+ form button{
+    background: transparent;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+ }
+ form button .fas{
+    font-size: 16px;
+    color: #ccc;
+ }
+ .socialIcon .fa-brands{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: #000;
+    background: #fff;
+    margin-right: 15px;
+    cursor: pointer;
+ }
+ hr{
+    width: 90px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    margin: 20px auto;
+ }
+ .copyright{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    padding: 3% 0px;
+ }
+ .underline{
+    width: 100%;
+    height: 5px;
+    background: #767676;
+    border-radius: 3px;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    overflow: hidden;
+ }
+ .underline span{
+    width: 15px;
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    animation: moving 2s linear infinite;
+ }
+ @keyframes moving{
+    0%{
+        left: -20px;
+    }
+    100%{
+        left: 100%;
+    }
+ }
+ @media  (max-width: 700px){
+    .footer{
+        bottom: unset;
+    }
+    .col{
+        flex-basis: 100%;    
+    }
+    .col:nth-child(2),.col:nth-child(3){
+        flex-basis: 100%;
+    }
+ }
+
+
+</style>
+<body>
+    <!-- new navbar -->
+    <nav>
+        <div class="nav-bar">
+            <i class='bx bx-menu sidebarOpen' ></i>
+            <span class="logo navLogo"><a href="index.html">BookReview</a></span>
+
+            <div class="menu">
+                <div class="logo-toggle">
+                    <span class="logo"><a href="index.html">BookReview</a></span>
+                    <i class='bx bx-x siderbarClose'></i>
+                </div>
+
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About</a></li>                    
+                    <li><a href="#">Languages</a></li>
+                    <li><a href="login.html"><img class="userlogin" src="https://cdn-icons-png.flaticon.com/512/3293/3293466.png" alt=""></a></li>
+                </ul>
+            </div>
+         
+            <div class="darkLight-searchBox">
+                <div class="dark-light">
+                    <i class='bx bx-moon moon'></i>
+                    <i class='bx bx-sun sun'></i>
+                </div>
+
+                <div class="searchBox">
+                   <div class="searchToggle">
+                    <i class='bx bx-x cancel'></i>
+                    <i class='bx bx-search search'></i>
+                   </div>
+                    <div class="search-field">
+                        <input type="text" placeholder="Search...">
+                        <i class='bx bx-search'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Rating type Images  -->
+    <section class="RatImage-container"> 
+        <div class="episodeList">
+            <div class="moduleName">Top Rated book stories </div>
+            <div class="episodeCard-main">
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:85/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/d21f62ab4b3f41ea851698376459f625.png" alt=""></a>                    
+                        <div class="truncate">The 5 AM Club in Hindi</div>
+                        <div class="cardUseName">Robin Sharma</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:100/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/c780c6411d5f4f139efbb35ba867ac29.png" alt=""></a>                    
+                        <div class="truncate">Think Like A Monk</div>
+                        <div class="cardUseName">Jay Shetty</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:85/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/930c8fda49ae44bebfbceec4b0fa55b3.png" alt=""></a>                    
+                        <div class="truncate">Yatharth Bhagvad Geeta</div>
+                        <div class="cardUseName">Vyasa</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:85/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/e1a25459e59a458dba70076f18723da0.png" alt=""></a>                    
+                        <div class="truncate">Aap bhi IAS ban sakte hai</div>
+                        <div class="cardUseName">Avadhesh ji</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:100/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/5c2e12faa7434b5a9b8a060596c6256f.png" alt=""></a>                    
+                        <div class="truncate">Ikigai</div>
+                        <div class="cardUseName">Garcia, Miralles</div>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:85/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/dc70011d605f47f7823edea19fb91e85.png" alt=""></a>                    
+                        <div class="truncate">The Life Of Charlie Chaplin</div>
+                        <div class="cardUseName">Kebin j hayes</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <section class="RatImage-container"> 
+        <div class="episodeList">
+            <!-- <div class="moduleName">Horror book stories </div> -->
+            <div class="episodeCard-main">
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://djhonz7dexnot.cloudfront.net/35d67d51770cff69e4bca7440808567467d8de89.webp" alt=""></a>                    
+                        <div class="truncate">Kitni Mohabbat</div>
+                        <div class="cardUseName">Karodhibal ji</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://djhonz7dexnot.cloudfront.net/d6315ebdef0bb5e3579ca3a29272a719b9f9c02b.webp" alt=""></a>                    
+                        <div class="truncate">Love SUPERSTAR</div>
+                        <div class="cardUseName">Sanskrati</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://djhonz7dexnot.cloudfront.net/2bfaf2f6054ba110df22c5c46bccf7322bbf34d0.webp" alt=""></a>                    
+                        <div class="truncate">Kesa Ye Ishq hai</div>
+                        <div class="cardUseName">Priyanka Katare</div>
+                        <div class="rating">★★★✩✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://djhonz7dexnot.cloudfront.net/b0c60bdf42c8d812aaec152d01105b8285710fdb_23oct.webp" alt=""></a>                    
+                        <div class="truncate">Ajnavi Sa Ishq</div>
+                        <div class="cardUseName">Priyanka Katare</div>
+                        <div class="rating">★★★✩✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://djhonz7dexnot.cloudfront.net/98d1f75ffdefd9b57b62bd1703ca6688797bf654.webp" alt=""></a>                    
+                        <div class="truncate">Me Bani Tere Liye</div>
+                        <div class="cardUseName">Mahima</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://djhonz7dexnot.cloudfront.net/cc2c028328dab260c9848dd7be18761da007762e_31oct.webp" alt=""></a>                    
+                        <div class="truncate">Untruly Yours</div>
+                        <div class="cardUseName">Smitha Shetty</div>
+                        <div class="rating">★★★✩✩</div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <section class="RatImage-container">
+        <div class="episodeList">
+            <!-- <div class="moduleName">Top Self Improve Books </div> -->
+            <div class="episodeCard-main">
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:85/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/5ae0cd1447954fba9f563de8adbb1a4e.png" alt=""></a>
+                        <div class="truncate">Chanakya Niti</div>
+                        <div class="cardUseName">Chanakya</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:100/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/af6471914d4b4aa4b9061cc667236a4d.png" alt=""></a>                    
+                        <div class="truncate">Atomic Habits</div>
+                        <div class="cardUseName">James Clear</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:100/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/a505c911598b40a4b75c7f962318a965.png" alt=""></a>                    
+                        <div class="truncate">S.M :Source Of Inspiration</div>
+                        <div class="cardUseName">Sandeep sir</div>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:100/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/f93f65ccabc84c6aaf19c7f50a90a17b.jpeg" alt=""></a>                    
+                        <div class="truncate">Think And Grow Rich</div>
+                        <div class="cardUseName">Napolean Hill</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:100/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/c2beac180e854b9ba350cbed7673e40f.png" alt=""></a>                    
+                        <div class="truncate">Psychology Of Money</div>
+                        <div class="cardUseName">Morgen Housel</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                <div class="pointerCard">
+                    <div class="episodeImage">
+                        <a href=""><img id="pic"onclick="alert('You have clicked a link in the web page!');" src="https://images.cdn.kukufm.com/w:300/f:webp/q:100/https://s3.ap-south-1.amazonaws.com/kukufm/cu_icons/55fd17366fbd4d599ce5e474b2314ae6.png" alt=""></a>                    
+                        <div class="truncate">Rich Dad Poor Dad</div>
+                        <div class="cardUseName">Robert Kiyosaki</div>
+                        <div class="rating">★★★★✩</div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <hr>
+    <hr>
+
+    <!-- This is footer -->
+    <footer class="foot">
+        <div class="row">
+            <div class="col">
+                <img src="images/booklogo.png"  class="logo">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nonvitae voluptatem ducimus modi sint? Error.</p>
+            </div>
+            <div class="col">
+                <h3>Office <div class="underline"><span></span></div></h3>
+                <p>LNCT,Bhopal</p>
+                <p>462022,India</p>
+                <p class="email">subratprakash8031@gmail.com</p>
+            </div>
+            <div class="col">
+                <h3>Links <div class="underline"><span></span></div></h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="">Services</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>Newsletter <div class="underline"><span></span></div></h3>
+                <form action="">
+                    <!-- <i class="fa-light fa-envelope"></i> -->
+                    <input type="email" placeholder="Enter your email id" required>
+                    <button type="submit"><i class="fa-light fa-square-arrow-right"></i></button>
+                </form>
+                <div class="socialIcon">
+                    <a href="https://www.instagram.com/mr._shubham._sahu/"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://github.com/Subrat-Prakash"><i class="fa-brands fa-github"></i></a>
+                    <a href=""><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/shubham-sahu-15348b203/"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">BookReview | Copyright © 2022</p>
+    </footer>
+
+
+<!-- for sliding images -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+<script>
+    const swiper = new Swiper('.swiper', {
+      autoplay: {
+        delay:5000,
+        disableOnInteraction: false,
+      },
+  loop: true,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable:true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});
+</script>
+<!-- for new nav button -->
+<script>
+
+    const body = document.querySelector("body"),
+          nav = document.querySelector("nav"),
+          modeToggle = document.querySelector(".dark-light"),
+          searchToggle = document.querySelector(".searchToggle"),
+          sidebarOpen = document.querySelector(".sidebarOpen"),
+          siderbarClose = document.querySelector(".siderbarClose");
+    
+          let getMode = localStorage.getItem("mode");
+              if(getMode && getMode === "dark-mode"){
+                body.classList.add("dark");
+              }
+    
+    // js code to toggle dark and light mode
+          modeToggle.addEventListener("click" , () =>{
+            modeToggle.classList.toggle("active");
+            body.classList.toggle("dark");
+    
+            // js code to keep user selected mode even page refresh or file reopen
+            if(!body.classList.contains("dark")){
+                localStorage.setItem("mode" , "light-mode");
+            }else{
+                localStorage.setItem("mode" , "dark-mode");
+            }
+          });
+    
+    // js code to toggle search box
+            searchToggle.addEventListener("click" , () =>{
+            searchToggle.classList.toggle("active");
+          });
+     
+          
+    //   js code to toggle sidebar
+    sidebarOpen.addEventListener("click" , () =>{
+        nav.classList.add("active");
+    });
+    
+    body.addEventListener("click" , e =>{
+        let clickedElm = e.target;
+    
+        if(!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains("menu")){
+            nav.classList.remove("active");
+        }
+    });
+    
+</script>
+</body>
+</html>

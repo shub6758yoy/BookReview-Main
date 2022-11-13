@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About us </title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+*{
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;;
+}
+.section{
+    width: 100%;
+    
+}
+.section .container{
+    width: 80%;
+    display: block;
+    margin: 0px auto;
+    padding: 50px 0px;
+}
+.container .title{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.container .title h1{
+    text-transform: uppercase;
+    font-size: 35px;
+    color: #A350A3;
+
+}
+.container .title h1 ::after{
+    content: "";
+    height: 5px;
+    width:100px;
+    background-color: #c4d156;
+    border-radius: 25px;
+    display: block;
+    margin: auto;
+}
+.content{
+    float: left;
+    width: 55%;
+}
+.image-section{
+    float: right;
+    width: 40%;
+}
+/* .image-section img{
+    width: 100%;
+    height: auto;
+}  */
+.content .article h3{
+    color: #a3a3a3;
+    font-size: 17px;
+}
+.content .article p{
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+.content .article .button{
+     margin-top: 50px;
+}
+.content .article .button a{
+    text-decoration: none;
+    padding: 8px 25px;
+    background-color: #A350A3;
+    border-radius: 40px;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+}
+.content .article .button a:hover{
+    color: #fff;
+    background-color: #f28f92;
+    transition: 1s ease;
+}
+@media screen and (max-width:768px){
+    .section .container{
+        width:80%;
+        display: block;
+        margin: auto;
+    }
+    .content{
+        float: none;
+        width: 100%;
+        display: block;
+        margin: auto;
+    }
+    .image-section{
+        float: none;
+        width: 100%;
+        margin-top: 50px;
+    }
+    .image-section img{
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: auto;
+    }
+    .container .title h1{
+        text-align: center;
+        font-size: 30px;
+    }
+    .container .article .button{
+        text-align: center;
+
+    }
+    .container .article .button a{
+        padding: 6px 15px;
+        font-size: 16px;
+    }
+
+
+}
+    </style>
+<body>
+    <div class="section">
+        <div class="container">
+            <div class="title">
+                <h1>About Us</h1>
+            </div>
+            <div class="content">
+                <div class="article">
+                    <h3>Hii, my name is Shubham sahu and my group partener name is Subrat Prakash. WE are Learner and also Developer, We Want to solve problem to peoples to read books and we developed this website to listen book summaries.</h3>
+                    <p>Our vision to improve this website and help peoples to listen book summaries to improves peoples life.
+                    </p>
+                    <div class="button">
+                        <a href="index.html">Back Home</a>
+                    </div>
+                </div>
+            </div>
+            <div class="image-section">
+                <img src="Images/book-image.png" alt="">
+            </div>
+            <!-- <div class="social">
+                <a href=""><i class=" fa-facebook-f"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+                <a href=""><i class="fab fa-instagram"></i></a>
+            </div> -->
+        </div>
+    </div>
+
+</body>
+
+</html>
